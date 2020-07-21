@@ -9,20 +9,9 @@ using System.Runtime.InteropServices;
 
 namespace ContactManager
 {
-
     [Serializable]
     public class Contact
     {
-
-        // Kintamųjų deklaracija
-
-        //private string _name;
-        //private string _lastName;
-        //private int _phoneNumber;
-        //private string _address;
-
-        //Get, set
-
         public string Name { get; set; }
         public string LastName { get; set; }
         public int PhoneNumber { get; set; }
@@ -33,8 +22,6 @@ namespace ContactManager
             return "\n" + $"Contact: {Name}, {LastName}, {PhoneNumber}, {Address}";
         }
 
-
-        // Serialize metodas
         public static void Serialize(string path, List<Contact> list)
         {
             using (Stream stream = File.Open(path, FileMode.Open))
@@ -43,8 +30,6 @@ namespace ContactManager
                 binaryFormatter.Serialize(stream, list);
             }
         }
-
-        // Deserialize metodas
 
         public static void Deserialize(string path, List<Contact> list)
         {
@@ -72,7 +57,6 @@ namespace ContactManager
 
     }
 
-
     public class ContactRepository
     {
 
@@ -82,14 +66,6 @@ namespace ContactManager
         {
             bool hasNumber = list.Any(val => val.PhoneNumber == number);
             return hasNumber;
-            //Console.WriteLine(hasNumber);
-            //while (hasNumber != true)
-            //{
-            //    Console.WriteLine("Number already exists. Please enter new one.");
-            //    string phoneNumberAsString = Console.ReadLine();
-            //
-            //}
-
         }
 
         public static int CheckIfNumber(string phoneNumberAsString)
@@ -117,7 +93,7 @@ namespace ContactManager
             return input_phoneNumber;
         }
 
-        // Add metodai - overloading
+        // Add metodas - prideti kontakta
         public static void AddContact()
         {
 
@@ -149,19 +125,10 @@ namespace ContactManager
                 input_phoneNumber = CheckIfNumber(phoneNumberAsString);
             }
             
-           
-
             Console.WriteLine("-- Enter your address: ", "\n");
             var input_address = Console.ReadLine();
 
-            //Console.WriteLine("-- Do you want to add adress(Yes/No)?: ", "\n");
-            //string answer = Console.ReadLine();
-            //string input_address;
-            //if (answer == "Yes")
- 
-
-
-
+            // Objekto sukurimas 
             var contactToAdd = new Contact
             {
                 Name = input_name,
@@ -174,22 +141,10 @@ namespace ContactManager
             // Pridedame kontakta i lista
             existingContacts.Add(contactToAdd);
 
-
             // Iškviecamas Serialize metodas
             Contact.Serialize(path, existingContacts);
 
-            //using (Stream stream = File.Open(path, FileMode.Open))
-            //{
-            //    var binaryFormatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
-            //    binaryFormatter.Serialize(stream, existingContacts);
-            //}
-
-
-
-
         }
-
-
 
         // Update metodas
         public static void UpdateContact()
@@ -211,7 +166,6 @@ namespace ContactManager
 
             var pattern = string.Join(",", existingContacts.Select(cff => cff.ToString()));
             Console.WriteLine(pattern);
-
 
             // 2 - Enter contact by number which want to be edited ----------------------------------------------------------------
 
@@ -235,14 +189,6 @@ namespace ContactManager
                 Console.WriteLine(result);
 
             }
-
-            //if (result == null)
-            //{
-            //    Console.WriteLine("This number is not present in list. Please enter new one.");
-            //
-            //    phoneNumberAsString = Console.ReadLine();
-            //    input_phoneNumber = CheckIfNumber(phoneNumberAsString);
-            //}
 
             //4 -  Select what to update ------------------------------------------------------------------------------ 
             //Console.WriteLine("-- Selected object is: " + "\n" + result);
@@ -349,15 +295,6 @@ namespace ContactManager
                 }
             }
             while (retry != "No");
-
-
-            //Console.WriteLine(part);
-            //Console.WriteLine("-- Selected object is: " + "\n");
-
-            //var patter = string.Join(",", result.Select(cff => cff.ToString()));
-            //Console.WriteLine(patter);
-
-
         }
 
         // Delete metodas
@@ -385,7 +322,6 @@ namespace ContactManager
             Console.WriteLine("-- Enter contact number for deletion: ");
 
             string phoneNumberAsString = Console.ReadLine();
-
 
             int input_phoneNumber;
             while (!int.TryParse(phoneNumberAsString, out input_phoneNumber))
@@ -430,17 +366,8 @@ namespace ContactManager
 
             var pattern = string.Join(",", contactfromFile.Select(cff => cff.ToString()));
             Console.WriteLine(pattern);
-
-
-
-
-
         }
-
-
      }
-
-
 
     class Program
     {
@@ -449,7 +376,6 @@ namespace ContactManager
 
             string mode;
             string retry = "No";
-
 
             do
             {
