@@ -59,19 +59,17 @@ namespace ContactManager
 
     }
 
+
     public class ContactRepository
     {
 
         const string path = @"./contact.txt";
 
-        // Cheks if Unique vardas - pakeisti
         public static bool CheckUniqueness(List<Contact> list, int number)
         {
             bool hasNumber = list.Any(val => val.PhoneNumber == number);
             return hasNumber;
         }
-
-
         // IsValidNumber - pakeisti varda
         public static int CheckIfNumber(string phoneNumberAsString)
         {
@@ -83,23 +81,6 @@ namespace ContactManager
             }
             return input_phoneNumber;
         }
-
-
-        // ISMESTI
-        public static int CheckExistance(List<Contact> list, Contact result)
-        {
-            int input_phoneNumber;
-            string phoneNumberAsString;
-            bool ifExists = list.Contains(result);
-            while (ifExists != list.Contains(result))
-            {
-                Console.WriteLine("This number is not present in list. Please enter new one.");
-            }
-            phoneNumberAsString = Console.ReadLine();
-            input_phoneNumber = CheckIfNumber(phoneNumberAsString);
-            return input_phoneNumber;
-        }
-
 
         // Paprasti metodai - jokios logikos.
         // Add metodas - prideti kontakta
