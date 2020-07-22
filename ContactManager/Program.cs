@@ -19,6 +19,7 @@ namespace ContactManager
 
         public override string ToString()
         {
+            // Join
             return "\n" + $"Contact: {Name}, {LastName}, {PhoneNumber}, {Address}";
         }
 
@@ -31,6 +32,7 @@ namespace ContactManager
             }
         }
 
+        // out vietoj list. Iskelti i ContactRepository ir pasidaryt private
         public static void Deserialize(string path, List<Contact> list)
         {
             using (Stream stream = File.Open(path, FileMode.Open))
@@ -62,12 +64,15 @@ namespace ContactManager
 
         const string path = @"./contact.txt";
 
+        // Cheks if Unique vardas - pakeisti
         public static bool CheckUniqueness(List<Contact> list, int number)
         {
             bool hasNumber = list.Any(val => val.PhoneNumber == number);
             return hasNumber;
         }
 
+
+        // IsValidNumber - pakeisti varda
         public static int CheckIfNumber(string phoneNumberAsString)
         {
             int input_phoneNumber;
@@ -79,6 +84,8 @@ namespace ContactManager
             return input_phoneNumber;
         }
 
+
+        // ISMESTI
         public static int CheckExistance(List<Contact> list, Contact result)
         {
             int input_phoneNumber;
@@ -93,6 +100,8 @@ namespace ContactManager
             return input_phoneNumber;
         }
 
+
+        // Paprasti metodai - jokios logikos.
         // Add metodas - prideti kontakta
         public static void AddContact()
         {
@@ -124,7 +133,7 @@ namespace ContactManager
                 phoneNumberAsString = Console.ReadLine();
                 input_phoneNumber = CheckIfNumber(phoneNumberAsString);
             }
-            
+
             Console.WriteLine("-- Enter your address: ", "\n");
             var input_address = Console.ReadLine();
 
@@ -334,7 +343,7 @@ namespace ContactManager
             var result = existingContacts.Find(x => x.PhoneNumber == input_phoneNumber);
             Console.WriteLine(result);
 
-            while(result == null)
+            while (result == null)
             {
                 Console.WriteLine("This number is not present in list. Please enter new one.");
                 phoneNumberAsString = Console.ReadLine();
@@ -351,7 +360,7 @@ namespace ContactManager
             Contact.Serialize(path, existingContacts);
         }
 
-        // View metodas
+        // View metodas - pervadinti i Get
         public static void ViewContacts()
         {
 
@@ -367,10 +376,11 @@ namespace ContactManager
             var pattern = string.Join(",", contactfromFile.Select(cff => cff.ToString()));
             Console.WriteLine(pattern);
         }
-     }
+    }
 
     class Program
     {
+
         static void Main(string[] args)
         {
 
@@ -434,7 +444,4 @@ namespace ContactManager
             while (retry != "No");
         }
     }
-
-
-    
 }
